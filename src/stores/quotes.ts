@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 
 interface Item {
   text: string | number;
+  author: string;
 }
 
 export const useQuotesStore = defineStore('quotes', {
@@ -26,8 +27,8 @@ export const useQuotesStore = defineStore('quotes', {
       localStorage.setItem('quotes', JSON.stringify(this.items));
     },
 
-    getQuotesJson(): string {
-      return JSON.stringify(this.items);
+    getQuotesJson() {
+      return this.items;
     }
   }
 });
