@@ -5,28 +5,28 @@ interface Item {
   text: string | number;
 }
 
-export const useItemStore = defineStore('items', {
+export const useQuotesStore = defineStore('quotes', {
   state: () => ({
     items: [] as Item[],
   }),
   actions: {
-    loadItems() {
-      const savedItems = localStorage.getItem('items');
+    loadQuotes() {
+      const savedItems = localStorage.getItem('quotes');
       if (savedItems) {
         this.items = JSON.parse(savedItems);
       }
     },
     
-    addItem(newItem: Item) {
+    addQuotes(newItem: Item) {
       this.items.push(newItem); 
-      this.saveItems();
+      this.saveQuotes();
     },
     
-    saveItems() {
-      localStorage.setItem('items', JSON.stringify(this.items));
+    saveQuotes() {
+      localStorage.setItem('quotes', JSON.stringify(this.items));
     },
 
-    getItemsJson(): string {
+    getQuotesJson(): string {
       return JSON.stringify(this.items);
     }
   }
