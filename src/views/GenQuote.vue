@@ -23,15 +23,23 @@ import { useQuotesStore } from '@/stores/quotes'; // Adjust the import path acco
 
 const itemStore = useQuotesStore();
 const isGenerated = ref(false)
-var quote = ref({})
 
-// Get a random index from the JSON list
-const randomIndex = Math.floor(Math.random() * quotas.length);
-// Set the random element
-quote.value = quotas[randomIndex];
+// Define the expected structure for a quote
+interface Quote {
+  text: string;
+  author: string;
+}
+
+// Initialize with a default empty quote
+const quote = ref<Quote>({ text: "", author: "" });
 
 function gen() {
     itemStore.loadQuotes();
+
+    // Get a random index from the JSON list
+    const randomIndex = Math.floor(Math.random() * quotas.length);
+    // Assign a valid quote from the list
+    quote.value = quotas[randomIndex];
 
     isGenerated.value = true;
     itemStore.addQuotes(quote.value);
