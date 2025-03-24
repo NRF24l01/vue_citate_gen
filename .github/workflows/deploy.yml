@@ -18,12 +18,17 @@ jobs:
 
       - name: Собираем Vue.js
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/vue-builder -f Dockerfile.build .
-          docker create --name extract ghcr.io/${{ github.repository }}/vue-builder
+          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')  # Приводим к нижнему регистру
+          docker build -t ghcr.io/$REPO_NAME/vue-builder -f Dockerfile.build .
+          docker create --name extract ghcr.io/$REPO_NAME/vue-builder
           docker cp extract:/app/dist ./dist
+
 
       - name: Собираем финальный Nginx-образ
         run: docker build -t ghcr.io/${{ github.repository }}/vue-nginx .
 
       - name: Пушим образ в GHCR
-        run: docker push ghcr.io/${{ github.repository }}/vue-nginx
+        run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')  # Нижний регистр
+          docker push ghcr.io/$REPO_NAME/vue-nginx
+
