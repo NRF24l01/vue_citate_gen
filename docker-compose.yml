@@ -1,0 +1,16 @@
+services:
+  vue-nginx:
+    image: ghcr.io/nrf24l01/vue_citate_gen/vue-nginx:latest
+    ports:
+      - "8080:8003"
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=300
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
