@@ -25,7 +25,9 @@ jobs:
 
 
       - name: Собираем финальный Nginx-образ
-        run: docker build -t ghcr.io/${{ github.repository }}/vue-nginx .
+        run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ghcr.io/$REPO_NAME/vue-nginx .
 
       - name: Пушим образ в GHCR
         run: |
