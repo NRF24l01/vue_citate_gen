@@ -2,7 +2,7 @@ services:
   vue-nginx:
     image: ghcr.io/nrf24l01/vue_citate_gen/vue-nginx:latest
     ports:
-      - "8080:8003"
+      - "8003:80"
     restart: unless-stopped
 
   watchtower:
