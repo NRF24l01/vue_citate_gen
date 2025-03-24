@@ -1,0 +1,29 @@
+name: Build and Deploy Vue.js App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout репозиторий
+        uses: actions/checkout@v4
+
+      - name: Логин в GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+
+      - name: Собираем Vue.js
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/vue-builder -f Dockerfile.build .
+          docker create --name extract ghcr.io/${{ github.repository }}/vue-builder
+          docker cp extract:/app/dist ./dist
+
+      - name: Собираем финальный Nginx-образ
+        run: docker build -t ghcr.io/${{ github.repository }}/vue-nginx .
+
+      - name: Пушим образ в GHCR
+        run: docker push ghcr.io/${{ github.repository }}/vue-nginx
