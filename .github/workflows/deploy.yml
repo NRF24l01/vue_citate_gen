@@ -20,8 +20,9 @@ jobs:
         run: |
           REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')  # Приводим к нижнему регистру
           docker build -t ghcr.io/$REPO_NAME/vue-builder -f Dockerfile.build .
-          docker create --name extract ghcr.io/$REPO_NAME/vue-builder
+          docker create --name extract vue-builder
           docker cp extract:/app/dist ./dist
+
 
 
       - name: Собираем финальный Nginx-образ
