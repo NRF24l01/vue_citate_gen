@@ -3,7 +3,7 @@ name: Build and Deploy Vue.js App
 on:
   push:
     branches:
-      - main
+      - main  # Или твоя основная ветка
 
 jobs:
   build:
@@ -16,22 +16,11 @@ jobs:
       - name: Логин в GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
-      - name: Собираем Vue.js
-        run: |
-          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')  # Приводим к нижнему регистру
-          docker build -t ghcr.io/$REPO_NAME/vue-builder -f Dockerfile.build .
-          docker create --name extract vue-builder
-          docker cp extract:/app/dist ./dist
+      - name: Приведение имени репозитория к нижнему регистру
+        run: echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-
-
-      - name: Собираем финальный Nginx-образ
-        run: |
-          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          docker build -t ghcr.io/$REPO_NAME/vue-nginx .
+      - name: Собираем Docker-образ
+        run: docker build -t ghcr.io/${{ env.REPO_NAME }}/vue-nginx .
 
       - name: Пушим образ в GHCR
-        run: |
-          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')  # Нижний регистр
-          docker push ghcr.io/$REPO_NAME/vue-nginx
-
+        run: docker push ghcr.io/${{ env.REPO_NAME }}/vue-nginx
