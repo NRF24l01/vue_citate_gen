@@ -7,6 +7,9 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  define: {
+    "import.meta.env.VITE_YANDEX_METRIKA_ID": JSON.stringify(process.env.VITE_YANDEX_METRIKA_ID),
+  },
   plugins: [
     vue(),
     vueDevTools(),

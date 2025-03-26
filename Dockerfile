@@ -3,6 +3,9 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
+ARG VITE_YANDEX_METRIKA_ID
+ENV VITE_YANDEX_METRIKA_ID=$VITE_YANDEX_METRIKA_ID
+
 # Копируем package.json и package-lock.json и устанавливаем зависимости
 COPY package.json package-lock.json ./
 RUN npm ci
