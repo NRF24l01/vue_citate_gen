@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center space-y-6 py-12">
       <h2 class="text-2xl font-bold">Наши клиенты</h2>
-      <div class="flex items-end space-x-6">
+      <div class="flex items-end justify-center space-x-6">
         <div class="flex flex-col items-center w-1/4">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAh3-JQpkywnwYRGyEn06euflnYYZIt5wN8w&s" alt="Client 1" class="w-48 h-64 object-cover rounded-lg shadow-lg" />
           <p class="mt-4 text-lg font-semibold">Дуэно Джносон</p>
