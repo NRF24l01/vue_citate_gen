@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center space-y-6 py-12 lg:px-50 px-5">
+  <div class="flex flex-col items-center space-y-6 py-12 xl:px-25 lg:px-10 md:px-5 px-5">
     <h2 class="text-2xl font-bold">Наши клиенты</h2>
     <div class="flex flex-col lg:flex-row items-center justify-center space-y-6 lg:space-y-0 lg:space-x-6 w-full">
       <div class="flex flex-col items-center w-3/4 sm:w-1/2 lg:w-1/4">
