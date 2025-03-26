@@ -19,7 +19,7 @@ jobs:
       - name: Приведение имени репозитория к нижнему регистру
         run: echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      - name: Проверка переменной VITE_YANDEX_METRIKA_ID
+      - name: Проверка переменной с ключом яндекс метрики
         run: |
           if [[ -z "${{ secrets.YANDEX_METRIKA_ID }}" ]]; then
             echo "Ошибка: YANDEX_METRIKA_ID пустая!"
@@ -28,7 +28,7 @@ jobs:
             echo "YANDEX_METRIKA_ID загружена корректно."
           fi
 
-      - name: Собираем Docker-образ с переменной VITE_YANDEX_METRIKA_ID
+      - name: Собираем Docker-образ
         run: |
           docker build \
             --build-arg VITE_YANDEX_METRIKA_ID="${{ secrets.YANDEX_METRIKA_ID }}" \
