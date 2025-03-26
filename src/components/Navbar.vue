@@ -1,6 +1,6 @@
 <template>
   <header class="bg-white">
-    <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <nav class="mx-auto flex items-center justify-between py-5 lg:px-8 px-5" aria-label="Global">
       <!-- Left side: Logo -->
       <div class="flex lg:flex-1">
         <RouterLink to="/" class="-m-1.5 p-1.5">
