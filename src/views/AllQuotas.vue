@@ -2,7 +2,14 @@
 import Card from "@/components/Card.vue"; 
 import { ref, onMounted } from "vue";
 
-const quotas = ref([]);
+interface Quote {
+    id: number;
+    text: string;
+    author: string;
+    tags: string[];
+}
+
+const quotas = ref<Quote[]>([]);
 
 import axios from "axios";
 
