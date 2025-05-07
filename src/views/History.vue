@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { useQuotesStore } from '@/stores/quotes';
 import Card from '@/components/Card.vue';
 
-var qstore = useQuotesStore()
-qstore.loadQuotes()
-const quotes = qstore.items
+const quotes: Quote[] = [];
+
+interface Quote {
+    text: string;
+    author: string;
+}
+
 console.log(quotes);
 </script>
 
