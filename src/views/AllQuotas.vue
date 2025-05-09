@@ -3,13 +3,20 @@ import Card from "@/components/Card.vue";
 import { ref, onMounted } from "vue";
 
 interface Quote {
-    id: number;
+    id: string;
     text: string;
     author: string;
     tags: string[];
 }
 
 const quotas = ref<Quote[]>([]);
+
+quotas.value = [{
+            id: "load",
+            text: "Загружаемся...",
+            author: "Бекенд",
+            tags: ["#Загрузка", "#Бек ответь"]
+        }]
 
 import axios from "axios";
 
