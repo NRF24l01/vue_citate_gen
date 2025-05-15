@@ -28,6 +28,7 @@ const router = createRouter({
       path: '/history',
       name: 'history',
       component: History,
+      meta: { requiresAuth: true},
     },
     {
       path: '/auth/login',
@@ -72,8 +73,8 @@ function getCustomClaims(token: string | null): DecodedJwt | null {
 
 router.beforeEach((to, from, next) => {
 
-  const token = localStorage.getItem("token");
-  if (!token && to.name !== 'login' && false) {
+  const token = localStorage.getItem("access_token");
+  if (!token && to.name !== 'login' && to.meta.requiresAuth) {
     next({ name: 'login' });
     return;
   }
