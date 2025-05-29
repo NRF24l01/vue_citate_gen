@@ -36,6 +36,11 @@ const router = createRouter({
       component: () => import('../views/auth/Login.vue'),
     },
     {
+      path: '/auth/register',
+      name: 'register',
+      component: () => import('../views/auth/Register.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not_found',
       component: () => import('../views/errors/404.vue'),
@@ -71,9 +76,29 @@ function getCustomClaims(token: string | null): DecodedJwt | null {
   return decodeJwt(token);
 }
 
-router.beforeEach((to, from, next) => {
+function isTokenExpired(token: string): boolean {
+  const decodedToken = decodeJwt(token);
+  if (!decodedToken || !decodedToken.exp) {
+    return true;
+  }
+  
+  // exp is in seconds, Date.now() is in milliseconds
+  return Date.now() >= decodedToken.exp * 1000;
+}
 
-  const token = localStorage.getItem("access_token");
+function noTokenIfExpired(token: string | null): string | null {
+  if (!token) {
+    return null;
+  }
+  if (isTokenExpired(token)) {
+    localStorage.removeItem("access_token");
+    token = null;
+  }
+  return token;
+}
+
+router.beforeEach((to, from, next) => {
+  const token = noTokenIfExpired(localStorage.getItem("access_token"));
   if (!token && to.name !== 'login' && to.meta.requiresAuth) {
     next({ name: 'login' });
     return;
