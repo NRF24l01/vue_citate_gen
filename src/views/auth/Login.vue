@@ -147,10 +147,10 @@ const handleSubmit = async () => {
 };
 </script>
 
-<style scoped>
+<style>
 /* Remove card styling completely */
 form {
-    max-width: none;
+    max-width: 28rem;
     padding: 0;
     background: none;
     box-shadow: none;
