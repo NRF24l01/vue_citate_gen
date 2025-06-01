@@ -4,7 +4,7 @@ import AllQuotas from '@/views/AllQuotas.vue'
 import GenQuote from '@/views/GenQuote.vue'
 import History from '@/views/History.vue'
 
-import { jwtDecode } from "jwt-decode";
+import { noTokenIfExpired, getCustomClaims } from '@/utils/jwt';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,11 +33,13 @@ const router = createRouter({
     {
       path: '/auth/login',
       name: 'login',
+      meta: { noIfAuth: true},
       component: () => import('../views/auth/Login.vue'),
     },
     {
       path: '/auth/register',
       name: 'register',
+      meta: { noIfAuth: true},
       component: () => import('../views/auth/Register.vue'),
     },
     {
@@ -55,48 +57,6 @@ const router = createRouter({
   },
 })
 
-interface DecodedJwt {
-  access?: string;
-  [key: string]: any;
-}
-
-function decodeJwt(token: string): DecodedJwt | null {
-  try {
-    return jwtDecode<DecodedJwt>(token);
-  } catch (error) {
-    console.error("Invalid JWT", error);
-    return null;
-  }
-}
-
-function getCustomClaims(token: string | null): DecodedJwt | null {
-  if (!token) {
-    return null;
-  }
-  return decodeJwt(token);
-}
-
-function isTokenExpired(token: string): boolean {
-  const decodedToken = decodeJwt(token);
-  if (!decodedToken || !decodedToken.exp) {
-    return true;
-  }
-  
-  // exp is in seconds, Date.now() is in milliseconds
-  return Date.now() >= decodedToken.exp * 1000;
-}
-
-function noTokenIfExpired(token: string | null): string | null {
-  if (!token) {
-    return null;
-  }
-  if (isTokenExpired(token)) {
-    localStorage.removeItem("access_token");
-    token = null;
-  }
-  return token;
-}
-
 router.beforeEach((to, from, next) => {
   const token = noTokenIfExpired(localStorage.getItem("access_token"));
   if (!token && to.name !== 'login' && to.meta.requiresAuth) {
@@ -104,6 +64,11 @@ router.beforeEach((to, from, next) => {
     return;
   }
   const decodedToken = getCustomClaims(token);
+
+  if (token && to.meta.noIfAuth) {
+    next({ name: "home" });
+    return;
+  }
 
   next();
 });
