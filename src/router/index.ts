@@ -4,7 +4,7 @@ import AllQuotas from '@/views/AllQuotas.vue'
 import GenQuote from '@/views/GenQuote.vue'
 import History from '@/views/History.vue'
 
-import { noTokenIfExpired, getCustomClaims } from '@/utils/jwt';
+import { getAccessToken, getCustomClaims } from '@/utils/jwt';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,7 +58,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = noTokenIfExpired(localStorage.getItem("access_token"));
+  const token = getAccessToken();
   if (!token && to.name !== 'login' && to.meta.requiresAuth) {
     next({ name: 'login' });
     return;
