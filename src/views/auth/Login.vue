@@ -75,6 +75,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { updateAuthState } from '@/stores/auth';
 
 const router = useRouter();
 const email = ref("");
@@ -128,6 +129,8 @@ const handleSubmit = async () => {
         }
 
         localStorage.setItem("access_token", response.data.access_token);
+        
+        updateAuthState();
         
         router.push({ name: "home" });
     } catch (error) {

@@ -20,11 +20,11 @@
       <!-- Center: Desktop navigation links -->
       <PopoverGroup class="hidden lg:flex lg:gap-x-12">
         <RouterLink :to="{ name: 'all_quotas' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Все наши цитаты</RouterLink>
-        <RouterLink v-if="login" :to="{ name: 'generate_quote' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Персональная цитата</RouterLink>
-        <RouterLink v-if="login" :to="{ name: 'history' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">История цитат</RouterLink>
+        <RouterLink v-if="isLoggedIn" :to="{ name: 'generate_quote' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Персональная цитата</RouterLink>
+        <RouterLink v-if="isLoggedIn" :to="{ name: 'history' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">История цитат</RouterLink>
 
-        <RouterLink v-if="!login" :to="{ name: 'login' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Войти</RouterLink>
-        <RouterLink v-if="!login" :to="{ name: 'register' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Зарегистрироваться</RouterLink>
+        <RouterLink v-if="!isLoggedIn" :to="{ name: 'login' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Войти</RouterLink>
+        <RouterLink v-if="!isLoggedIn" :to="{ name: 'register' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Зарегистрироваться</RouterLink>
       </PopoverGroup>
     </nav>
 
@@ -46,11 +46,11 @@
           <div class="-my-6 divide-y divide-gray-500/10">
             <div class="space-y-2 py-6">
               <RouterLink :to="{ name: 'all_quotas' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Все наши цитаты</RouterLink>
-              <RouterLink v-if="login" :to="{ name: 'generate_quote' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Персональная цитата</RouterLink>
-              <RouterLink v-if="login" :to="{ name: 'history' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">История цитат</RouterLink>
+              <RouterLink v-if="isLoggedIn" :to="{ name: 'generate_quote' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Персональная цитата</RouterLink>
+              <RouterLink v-if="isLoggedIn" :to="{ name: 'history' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">История цитат</RouterLink>
               
-              <RouterLink v-if="!login" :to="{ name: 'login' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Войти</RouterLink>
-              <RouterLink v-if="!login" :to="{ name: 'register' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Зарегистрироваться</RouterLink>
+              <RouterLink v-if="!isLoggedIn" :to="{ name: 'login' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Войти</RouterLink>
+              <RouterLink v-if="!isLoggedIn" :to="{ name: 'register' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Зарегистрироваться</RouterLink>
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -68,13 +68,7 @@ import {
 } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 
-import { isAuthenticated } from '@/utils/jwt';
-
-const login = ref(false)
-
-onMounted(() => {
-  login.value = isAuthenticated();
-})
+import { isLoggedIn } from '@/stores/auth';
 
 const mobileMenuOpen = ref(false)
 </script>
