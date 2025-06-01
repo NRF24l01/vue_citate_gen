@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -68,7 +68,13 @@ import {
 } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 
+import { isAuthenticated } from '@/utils/jwt';
+
 const login = ref(false)
+
+onMounted(() => {
+  login.value = isAuthenticated();
+})
 
 const mobileMenuOpen = ref(false)
 </script>
