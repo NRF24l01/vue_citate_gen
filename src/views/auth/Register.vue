@@ -190,7 +190,6 @@ const handleSubmit = async () => {
 
         // Store the token if it's returned immediately upon registration
         localStorage.setItem("access_token", response.data.access_token);
-        console.log("Access token stored:", response.data.access_token);
         
         // Navigate to login page or home depending on your flow
         router.push({ name: "login" });
