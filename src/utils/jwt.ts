@@ -45,7 +45,7 @@ export function noTokenIfExpired(token: string | null): string | null {
 }
 
 export function isAuthenticated(): boolean {
-  return noTokenIfExpired(localStorage.getItem("access_token")) !== null;
+  return getAccessToken() !== null;
 }
 
 export function requestAccessToken(): string | null {
