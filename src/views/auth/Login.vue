@@ -134,7 +134,7 @@ const handleSubmit = async () => {
         const err = error as any;
         
         if (err.response?.status === 401) {
-            errors.value.global = "Данные для входа неверны.";
+            errors.value.global = "Такой пользователь не найден";
             console.error("Unauthorized: Invalid credentials (401)");
         } else if (err.response?.status === 400) {
             errors.value.global = "Валидация не пройдена. Проверьте соблюдение требований.";
