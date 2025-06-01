@@ -19,6 +19,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import axios from "axios";
+import { isLoggedIn } from '@/stores/auth';
+import { getAccessToken } from '@/utils/jwt';
 
 const isGenerated = ref(false)
 
@@ -34,7 +36,17 @@ const quote = ref<Quote>({ text: "", author: "" });
 
 async function gen() {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/quotes/public/random`);
+    let response;
+    if (isLoggedIn.value && isLoggedIn.value === true) { 
+      const token = getAccessToken();
+      response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/quotes/personal`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    } else {
+      response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/quotes/public/random`);
+    }
     const data = response.data;
     console.log("Response data:", data);
     // Ensure the response has the expected structure
@@ -45,11 +57,20 @@ async function gen() {
     };
   } catch (error) {
     console.error("Error fetching quote:", error);
-    quote.value = {
-      text: "Failed to fetch quote",
-      author: "Error",
-      tags: []
-    };
+    
+    if (error.response && error.response.status === 404) {
+      quote.value = {
+        text: "Для вас больше нет цитат",
+        author: "Система",
+        tags: []
+      };
+    } else {
+      quote.value = {
+        text: "Ошбика при получении цитаты",
+        author: "Система",
+        tags: []
+      };
+    }
   }
 
   isGenerated.value = true;
