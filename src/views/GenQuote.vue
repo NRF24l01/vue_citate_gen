@@ -55,10 +55,10 @@ async function gen() {
       author: data.author || "Unknown author",
       tags: data.tags || []
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error fetching quote:", error);
     
-    if (error.response && error.response.status === 404) {
+    if (axios.isAxiosError(error) && error.response && error.response.status === 404) {
       quote.value = {
         text: "Для вас больше нет цитат",
         author: "Система",
