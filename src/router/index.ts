@@ -21,6 +21,12 @@ const router = createRouter({
       component: AllQuotas,
     },
     {
+      path: '/user/my_quotes',
+      name: 'my_quotes',
+      meta: { requiresAuth: true },
+      component: () => import('../views/MyQuotes.vue'),
+    },
+    {
       path: '/gen',
       name: 'generate_quote',
       meta: { requiresAuth: true},
