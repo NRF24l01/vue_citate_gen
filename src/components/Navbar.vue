@@ -5,7 +5,7 @@
       <div class="flex lg:flex-1">
         <RouterLink to="/" class="-m-1.5 p-1.5">
           <span class="sr-only">Generator citat 3000</span>
-          <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+          <img class="h-8 w-auto" src="/site-logo.ico" alt="" />
         </RouterLink>
       </div>
 
@@ -22,6 +22,7 @@
         <RouterLink :to="{ name: 'all_quotas' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Все наши цитаты</RouterLink>
         <RouterLink v-if="isLoggedIn" :to="{ name: 'generate_quote' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Персональная цитата</RouterLink>
         <RouterLink v-if="isLoggedIn" :to="{ name: 'history' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">История цитат</RouterLink>
+        <RouterLink v-if="isLoggedIn" :to="{ name: 'my_quotes' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Мои цитаты</RouterLink>
 
         <RouterLink v-if="!isLoggedIn" :to="{ name: 'login' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Войти</RouterLink>
         <RouterLink v-if="!isLoggedIn" :to="{ name: 'register' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Зарегистрироваться</RouterLink>
@@ -48,6 +49,7 @@
               <RouterLink :to="{ name: 'all_quotas' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Все наши цитаты</RouterLink>
               <RouterLink v-if="isLoggedIn" :to="{ name: 'generate_quote' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Персональная цитата</RouterLink>
               <RouterLink v-if="isLoggedIn" :to="{ name: 'history' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">История цитат</RouterLink>
+              <RouterLink v-if="isLoggedIn" :to="{ name: 'my_quotes' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Мои цитаты</RouterLink>
               
               <RouterLink v-if="!isLoggedIn" :to="{ name: 'login' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Войти</RouterLink>
               <RouterLink v-if="!isLoggedIn" :to="{ name: 'register' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Зарегистрироваться</RouterLink>
