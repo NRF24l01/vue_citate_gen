@@ -23,6 +23,7 @@ const router = createRouter({
     {
       path: '/gen',
       name: 'generate_quote',
+      meta: { requiresAuth: true},
       component: GenQuote,
     },
     {

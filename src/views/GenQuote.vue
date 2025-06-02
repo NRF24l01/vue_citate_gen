@@ -19,7 +19,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import axios from "axios";
-import { isLoggedIn } from '@/stores/auth';
 import { getAccessToken } from '@/utils/jwt';
 
 const isGenerated = ref(false)
@@ -36,17 +35,12 @@ const quote = ref<Quote>({ text: "", author: "" });
 
 async function gen() {
   try {
-    let response;
-    if (isLoggedIn.value && isLoggedIn.value === true) { 
-      const token = getAccessToken();
-      response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/quotes/personal`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    } else {
-      response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/quotes/public/random`);
-    }
+    const token = getAccessToken();
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/quotes/personal`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     const data = response.data;
     console.log("Response data:", data);
     // Ensure the response has the expected structure
