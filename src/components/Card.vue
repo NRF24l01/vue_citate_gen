@@ -115,6 +115,10 @@ const props = defineProps({
   toModerate: {
     type: Boolean,
     default: false
+  },
+  id: {
+    type: String,
+    default: ''
   }
 });
 
@@ -150,7 +154,8 @@ function submitModeration() {
   
   emit('moderate', {
     status: moderationAction.value,
-    comment: moderationComment.value
+    comment: moderationComment.value,
+    id: props.id
   });
 }
 </script>
