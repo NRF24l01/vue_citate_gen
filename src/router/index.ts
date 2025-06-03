@@ -51,6 +51,12 @@ const router = createRouter({
       component: () => import('../views/auth/Register.vue'),
     },
     {
+      path: '/moderation/list',
+      name: 'moderation_list',
+      meta: { requiresAuth: true, requiresRole: 'moderator' },
+      component: () => import('../views/moderation/UnModerated.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not_found',
       component: () => import('../views/errors/404.vue'),
@@ -75,6 +81,14 @@ router.beforeEach((to, from, next) => {
     return;
   }
   const decodedToken = getCustomClaims(token);
+
+  if (decodedToken && to.meta.requiresRole) {
+    const userRole = decodedToken.role;
+    if (userRole !== to.meta.requiresRole) {
+      next({ name: 'not_found' });
+      return;
+    }
+  }
 
   if (token && to.meta.noIfAuth) {
     next({ name: "home" });
