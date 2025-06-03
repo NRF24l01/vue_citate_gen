@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full max-w-md mx-auto flex rounded-xl shadow-md border border-gray-200 bg-white text-gray-900 overflow-hidden">
-     <!-- Status Strip with tooltip -->
-     <div v-if="status && status!== ''"
+    <!-- Status Strip with tooltip -->
+    <div v-if="status && status !== ''"
       class="w-2"
       :class="getStatusDisplay(status).color"
       :title="getStatusDisplay(status).label"
@@ -22,6 +22,12 @@
           {{ tag }}
         </span>
       </div>
+
+      <!-- Moderator Comment -->
+      <p v-if="moderatorComment && moderatorComment.trim() !== ''" 
+         class="text-sm italic text-gray-500 border-l-4 border-gray-300 pl-4 mt-2 max-w-full whitespace-pre-line">
+        📝 {{ moderatorComment }}
+      </p>
 
       <!-- Author -->
       <div class="text-right text-gray-600 text-sm absolute bottom-4 right-4">— {{ author }}</div>
@@ -48,9 +54,12 @@ const props = defineProps({
   status: {
     type: String,
     default: '' // e.g., "approved", "pending", "rejected"
+  },
+  moderatorComment: {
+    type: String,
+    default: ''
   }
 });
-
 
 function getStatusDisplay(status) {
   switch (status) {

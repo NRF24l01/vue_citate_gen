@@ -150,6 +150,7 @@ const getStatusDisplay = (apiStatus: string) => {
         :author="quote.author"
         :tags="quote.tags"
         :status="quote.moderation.status"
+        :moderatorComment="quote.moderation.comment"
       />
     </div>
 
