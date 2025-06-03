@@ -30,16 +30,16 @@
       </p>
 
       <!-- Author -->
-      <div class="text-right text-gray-600 text-sm absolute bottom-4 right-4">— {{ author }}</div>
+      <div class="text-right text-gray-600 text-sm bottom-4 right-4">— {{ author }}</div>
       
       <!-- Moderation Fields (only shown when toModerate is true) -->
       <div v-if="toModerate" class="mt-8 pt-4 border-t border-gray-200">
-        <div class="flex flex-col gap-2">
-          <!-- Reject Button (Red) - Full Width -->
+        <div class="flex gap-2">
+          <!-- Reject Button (Red) -->
           <button 
             @click="setModerationAction('rejected')" 
-            class="w-full py-2 text-white rounded transition-all flex items-center justify-center"
-            :class="moderationAction === 'rejected' ? 'bg-red-600' : 'bg-red-400'"
+            class="flex-1 py-2 text-white rounded transition-all flex items-center justify-center"
+            :class="moderationAction === 'rejected' || moderationAction === '' ? 'bg-red-600' : 'bg-red-200'"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -47,11 +47,11 @@
             Отклонить
           </button>
           
-          <!-- Approve Button (Green) - Full Width -->
+          <!-- Approve Button (Green) -->
           <button 
             @click="setModerationAction('approved')" 
-            class="w-full py-2 text-white rounded transition-all flex items-center justify-center"
-            :class="moderationAction === 'approved' ? 'bg-green-600' : 'bg-green-400'"
+            class="flex-1 py-2 text-white rounded transition-all flex items-center justify-center"
+            :class="moderationAction === 'approved' || moderationAction === '' ? 'bg-green-600' : 'bg-green-200'"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -60,24 +60,25 @@
           </button>
         </div>
         
-        <!-- Comment area with icon-only submit button -->
-        <div class="mt-4 relative">
+        <!-- Comment area and icon-only submit button in a row -->
+        <div class="mt-2 flex flex-col gap-2">
           <textarea
             v-model="moderationComment"
             placeholder="Комментарий модератора"
-            class="w-full p-2 pr-10 border border-gray-300 rounded-md"
+            class="w-full p-2 border border-gray-300 rounded-md"
             rows="3"
           ></textarea>
           
-          <!-- Icon-only submit button -->
+          <!-- Full-width submit button -->
           <button 
             @click="submit"
-            class="absolute bottom-2 right-2 p-1 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+            class="w-full p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 flex items-center justify-center"
             :disabled="!moderationAction"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
             </svg>
+            Отправить
           </button>
         </div>
       </div>
