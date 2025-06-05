@@ -48,6 +48,18 @@ export function isAuthenticated(): boolean {
   return getAccessToken() !== null;
 }
 
+export function isModerator(): boolean {
+  const token = getAccessToken();
+  if (!token) {
+    return false;
+  }
+  const decodedToken = decodeJwt(token);
+  if (!decodedToken || !decodedToken.role) {
+    return false;
+  }
+  return decodedToken.role === "moderator";
+}
+
 export function requestAccessToken(): string | null {
   try {
     axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/refresh`, {}, {
