@@ -105,7 +105,7 @@ function onModerateTyped(payload: ModeratePayload, quote: Quote) {
 
 <template>
   <div class="p-6 w-full max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6">Созданые мной цитаты</h1>
+    <h1 class="text-3xl font-bold mb-6">Непромодерированые цитаты</h1>
 
     <!-- Error Message -->
     <div v-if="errorMessage" class="mb-4 text-red-600 font-semibold">
