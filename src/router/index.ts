@@ -30,12 +30,18 @@ const router = createRouter({
       path: '/gen',
       name: 'generate_quote',
       meta: { requiresAuth: true},
-      component: GenQuote,
+      component: () => import('../views/GenQuote.vue'),
+    },
+    {
+      path: '/create',
+      name: 'create_quote',
+      meta: { requiresAuth: true},
+      component: () => import('../views/NewQuote.vue'),
     },
     {
       path: '/history',
       name: 'history',
-      component: History,
+      component: () => import('../views/History.vue'),
       meta: { requiresAuth: true},
     },
     {
