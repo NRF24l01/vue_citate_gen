@@ -16,8 +16,10 @@ interface Quote {
 const props = withDefaults(defineProps<{
   quotes: Quote[];
   showModerationFilter?: boolean;
+  header?: string;
 }>(), {
-  showModerationFilter: true
+  showModerationFilter: true,
+  header: "Цитаты",
 });
 
 const statusFilter = ref("all");
@@ -61,7 +63,7 @@ const filteredQuotes = computed(() => {
 
 <template>
   <div class="p-6 w-full max-w-6xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6">Цитаты</h1>
+    <h1 class="text-3xl font-bold mb-6" v-if="header && header!==''">{{ header }}</h1>
 
     <!-- Filters -->
     <div class="flex flex-col md:flex-row gap-4 mb-6">

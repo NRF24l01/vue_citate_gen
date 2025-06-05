@@ -48,5 +48,5 @@ onMounted(async () => {
 </script>
 
 <template>
-    <QuoteList :quotes="quotas" :showModerationFilter="false" />
+    <QuoteList :quotes="quotas" :header="'История полученых вами цитат'" :showModerationFilter="false" />
 </template>

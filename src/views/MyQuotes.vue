@@ -37,5 +37,5 @@ onMounted(async () => {
 </script>
 
 <template>
-  <QuoteList :quotes="quotes" />
+  <QuoteList :header="'Созданые вами цитаты'" :quotes="quotes" />
 </template>

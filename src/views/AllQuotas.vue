@@ -1,24 +1,30 @@
 <script lang="ts" setup>
-import Card from "@/components/Card.vue"; 
 import { ref, onMounted } from "vue";
+import axios from "axios";
+import QuoteList from "@/components/QuoteList.vue"; // add import
 
 interface Quote {
     id: string;
     text: string;
     author: string;
     tags: string[];
+    moderation: {
+        status: string;
+        comment?: string;
+    };
 }
 
 const quotas = ref<Quote[]>([]);
 
 quotas.value = [{
-            id: "load",
-            text: "Загружаемся...",
-            author: "Бекенд",
-            tags: ["#Загрузка", "#Бек ответь"]
-        }]
-
-import axios from "axios";
+    id: "load",
+    text: "Загружаемся...",
+    author: "Бекенд",
+    tags: ["#Загрузка", "#Бек ответь"],
+    moderation: {
+        status: "pending"
+    }
+}];
 
 onMounted(async () => {
     try {
@@ -27,7 +33,8 @@ onMounted(async () => {
             id: quote.id,
             text: quote.text,
             author: quote.author,
-            tags: quote.tags || []
+            tags: quote.tags || [],
+            moderation: quote.moderation ?? { status: "approved" }
         }));
     } catch (error) {
         console.error("Failed to fetch quotes:", error);
@@ -38,14 +45,6 @@ onMounted(async () => {
 <template>
     <div class="p-6 w-[80vw] mx-auto">
         <h1 class="text-4xl font-bold mb-8 text-center">Все наши цитаты</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card
-                v-for="(quote, index) in quotas"
-                :key="index"
-                :quote="quote.text"
-                :author="quote.author"
-                :tags="quote.tags"
-            />
-        </div>
+        <QuoteList :quotes="quotas" :header="''" :showModerationFilter="false" />
     </div>
 </template>
