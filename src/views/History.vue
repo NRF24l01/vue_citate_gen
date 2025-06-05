@@ -1,59 +1,52 @@
 <script setup lang="ts">
-import Card from "@/components/Card.vue"; 
+import QuoteList from "@/components/QuoteList.vue";
 import { ref, onMounted } from "vue";
 import { getAccessToken } from '@/utils/jwt';
-
-const quotes: Quote[] = [];
+import axios from "axios";
 
 interface Quote {
     id: string;
     text: string;
     author: string;
     tags: string[];
+    moderation?: {
+        status: string;
+        comment?: string;
+    };
 }
 
 const quotas = ref<Quote[]>([]);
 
 quotas.value = [{
-            id: "load",
-            text: "Загружаемся...",
-            author: "Бекенд",
-            tags: ["#Загрузка", "#Бек ответь"]
-        }]
-
-import axios from "axios";
+    id: "load",
+    text: "Загружаемся...",
+    author: "Бекенд",
+    tags: ["#Загрузка", "#Бек ответь"],
+    moderation: { status: "pending" }
+}];
 
 onMounted(async () => {
     try {
         const token = getAccessToken();
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/quotes/personal/history`, {
             headers: {
-            Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`
             }
         });
         quotas.value = response.data.map((quote: any) => ({
             id: quote.id,
             text: quote.text,
             author: quote.author,
-            tags: quote.tags || []
+            tags: quote.tags || [],
+            moderation: quote.moderation || { status: "pending" }
         }));
     } catch (error) {
         console.error("Failed to fetch quotes:", error);
+        quotas.value = [];
     }
 });
 </script>
 
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6" v-if="quotas.length > 0">
-        <Card
-            v-for="(quote, index) in quotas"
-            :key="index"
-            :quote="quote.text"
-            :author="quote.author"
-            :tags="quote.tags"
-        />
-    </div>
-    <div v-else class="p-6 text-center text-gray-500">
-        Ваша история кристально чиста
-    </div>
+    <QuoteList :quotes="quotas" :showModerationFilter="false" />
 </template>
