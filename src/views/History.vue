@@ -44,7 +44,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6" v-if="quotas.length > 0">
         <Card
             v-for="(quote, index) in quotas"
             :key="index"
@@ -52,5 +52,8 @@ onMounted(async () => {
             :author="quote.author"
             :tags="quote.tags"
         />
+    </div>
+    <div v-else class="p-6 text-center text-gray-500">
+        Ваша история кристально чиста
     </div>
 </template>
