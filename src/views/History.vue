@@ -9,7 +9,7 @@ interface Quote {
     text: string;
     author: string;
     tags: string[];
-    moderation?: {
+    moderation: {
         status: string;
         comment?: string;
     };
