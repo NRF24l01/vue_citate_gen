@@ -207,6 +207,20 @@ const handleSubmit = async () => {
         isLoading.value = false;
     }
 };
+
+// Add these methods for blur handling
+const blurAuthorInput = () => {
+    setTimeout(() => {
+        showAuthorSuggestions.value = false;
+    }, 150);
+};
+const blurTagInput = () => {
+    setTimeout(() => {
+        showTagSuggestions.value = false;
+    }, 150);
+    validateTagInput();
+};
+
 </script>
 
 <template>
@@ -267,7 +281,7 @@ const handleSubmit = async () => {
                     ]"
                     @input="validateAuthor"
                     @focus="author && (showAuthorSuggestions = true)"
-                    @blur="setTimeout(() => showAuthorSuggestions = false, 150)"
+                    @blur="blurAuthorInput"
                     autocomplete="off"
                 />
                 <ul
@@ -311,7 +325,7 @@ const handleSubmit = async () => {
                         maxlength="30"
                         placeholder="Добавить тег и нажать Enter/Пробел"
                         @keydown="onTagInputKeydown"
-                        @blur="setTimeout(() => showTagSuggestions = false, 150); validateTagInput()"
+                        @blur="blurTagInput"
                         @focus="tagInput && (showTagSuggestions = true)"
                         :class="[
                             'flex-1 rounded-md border px-3 py-2 focus:outline-none transition',
