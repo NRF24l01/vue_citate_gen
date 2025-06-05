@@ -23,6 +23,7 @@
         <RouterLink v-if="isLoggedIn" :to="{ name: 'generate_quote' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Персональная цитата</RouterLink>
         <RouterLink v-if="isLoggedIn" :to="{ name: 'history' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">История цитат</RouterLink>
         <RouterLink v-if="isLoggedIn" :to="{ name: 'my_quotes' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Мои цитаты</RouterLink>
+        <RouterLink v-if="isLoggedIn" :to="{ name: 'create_quote' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Создать цитату</RouterLink>
 
         <RouterLink v-if="isModeratorLoggedIn" :to="{ name: 'moderation_list' }" class="text-base font-semibold text-gray-900 hover:bg-gray-50">Модерировать</RouterLink>
 
@@ -52,6 +53,7 @@
               <RouterLink v-if="isLoggedIn" :to="{ name: 'generate_quote' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Персональная цитата</RouterLink>
               <RouterLink v-if="isLoggedIn" :to="{ name: 'history' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">История цитат</RouterLink>
               <RouterLink v-if="isLoggedIn" :to="{ name: 'my_quotes' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Мои цитаты</RouterLink>
+              <RouterLink v-if="isLoggedIn" :to="{ name: 'create_quote' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Создать цитату</RouterLink>
               
               <RouterLink v-if="isModeratorLoggedIn" :to="{ name: 'moderation_list' }" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50" @click="mobileMenuOpen=false">Модерировать</RouterLink>
 
