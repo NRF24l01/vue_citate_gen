@@ -1,13 +1,18 @@
+networks:
+  quoter_net:
+    external: true
+
 services:
   vue-nginx:
-    image: ghcr.io/nrf24l01/vue_citate_gen/vue-nginx:latest
+    build:
+      dockerfile: Dockerfile
     ports:
       - "8003:80"
     restart: unless-stopped
 
-  watchtower:
+  watchtower-quoter-frontend:
     image: containrrr/watchtower
-    container_name: watchtower
+    container_name: watchtower-quoter-frontend
     restart: unless-stopped
     environment:
       - WATCHTOWER_CLEANUP=true
