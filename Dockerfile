@@ -5,6 +5,8 @@ WORKDIR /app
 
 ARG VITE_YANDEX_METRIKA_ID
 ENV VITE_YANDEX_METRIKA_ID=$VITE_YANDEX_METRIKA_ID
+ARG VITE_BACKEND_URL
+ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
 
 # Копируем package.json и package-lock.json и устанавливаем зависимости
 COPY package.json package-lock.json ./
