@@ -1,13 +1,7 @@
-networks:
-  quoter_net:
-    external: true
-
 services:
   vue-nginx:
-    build:
-      dockerfile: Dockerfile
-    ports:
-      - "8003:80"
+    image: ghcr.io/nrf24l01/vue_citate_gen/vue-nginx:latest
+    network_mode: host
     restart: unless-stopped
 
   watchtower-quoter-frontend:
